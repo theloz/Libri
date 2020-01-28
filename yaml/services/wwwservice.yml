@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: yii2
+  labels:
+    app: yii2
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080 #remove in case of clusterip
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: 443
+    nodePort: 30443 #remove in case of clusterip
+    protocol: TCP
+    name: https
+  selector:
+    app: yii2
+    tier: frontend
+  #type: ClusterIP
+  type: NodePort

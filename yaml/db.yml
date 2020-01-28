@@ -1,0 +1,39 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: yii2-mariadb
+  labels:
+    app: yii2
+spec:
+  selector:
+    matchLabels:
+      app: yii2
+      tier: maria-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: yii2
+        tier: maria-db
+    spec:
+      containers:
+      - image: mariadb:10.4.11
+        name: mariadb
+        imagePullPolicy: "Always"
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-pwd
+        ports:
+        - containerPort: 3306
+          name: mariadb
+        volumeMounts:
+        - name: db-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: db-persistent-storage
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim

@@ -1,0 +1,44 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: yii2
+  labels:
+    app: yii2
+spec:
+  selector:
+    matchLabels:
+      app: yii2
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: yii2
+        tier: frontend
+    spec:
+      containers:
+      - image: theloz/yii2-nginx:debian-slim
+        imagePullPolicy: Always
+        name: debianyii2
+        env:
+        - name: YII_DB_HOST
+          value: yii-mysql
+        - name: YII_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-pwd
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+          name: debianyii2
+        volumeMounts:
+        - name: www-persistent-storage
+          mountPath: /var/www/html
+        #command: [ "/bin/bash", "-c", "--" ]
+        #args: [ "while true; do sleep 30; done;" ]
+      volumes:
+      - name: www-persistent-storage
+        persistentVolumeClaim:
+          claimName: yii2-pv-claim

@@ -1,0 +1,8 @@
+#secretGenerator:
+#- name: mariadb-pwd
+#  literals:
+#  - password=super!!pwd
+resources:
+- bkp/secret.yml
+- db.yml
+- webserver.yml

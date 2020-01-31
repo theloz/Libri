@@ -44,6 +44,6 @@ ENV YII_VERSION 2.0.32
 
 COPY entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["bash", "entrypoint.sh"]
 
 #CMD ["%%CMD%%"]

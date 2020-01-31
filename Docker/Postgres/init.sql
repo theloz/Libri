@@ -17,7 +17,7 @@ CREATE TABLE public.audit_trail(
     table_name varchar(50),
     column_name varchar(50),
     row_name int,
-    change_dttm datetime,
+    change_dttm timestamp,
     change_by varchar(100),
     old_value varchar(255),
     new_value varchar(255)

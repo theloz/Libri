@@ -24,7 +24,8 @@ RUN mv composer.phar /usr/local/bin/composer
 #Clean packages directory
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
 
-VOLUME /var/www/html
+VOLUME /var/www/html/public
+VOLUME /var/src/private
 
 #Installing YII
 RUN wget https://github.com/yiisoft/yii2/releases/download/2.0.32/yii-basic-app-2.0.32.tgz
@@ -41,7 +42,7 @@ RUN a2enmod rewrite
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 
-COPY entrypoint.sh /usr/local/bin/
+COPY entrypoint.sh /usr/bin/
 
 ENTRYPOINT ["entrypoint.sh"]
 

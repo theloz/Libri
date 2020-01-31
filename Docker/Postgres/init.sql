@@ -15,7 +15,7 @@ CREATE TABLE public.libri (
 CREATE TABLE public.audit_trail(
     id int PRIMARY KEY,
     table_name varchar(50),
-    column varchar(50),
+    column_name varchar(50),
     row_name int,
     change_dttm datetime,
     change_by varchar(100),

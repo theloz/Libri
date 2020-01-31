@@ -31,7 +31,8 @@ RUN mv composer.phar /usr/local/bin/composer
 #Clean packages directory
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
 
-VOLUME /var/www/html
+VOLUME /var/www/html/public
+VOLUME /var/src/private
 
 #Installing YII
 RUN wget https://github.com/yiisoft/yii2/releases/download/2.0.32/yii-basic-app-2.0.32.tgz

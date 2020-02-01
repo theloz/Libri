@@ -3,7 +3,6 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-
 $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,3 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <code><?= __FILE__ ?></code>
 </div>
+<?php
+echo "<pre>";
+echo print_r(Yii::$app->user->identity->last_name);
+echo "</pre>";
+echo "<pre>";
+echo print_r(Yii::$app->user->identity);
+echo "</pre>";

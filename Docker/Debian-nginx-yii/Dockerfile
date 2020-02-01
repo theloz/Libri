@@ -5,7 +5,7 @@ LABEL   version="1.0" \
 
 #Debian essential tools & nginx
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get install -y curl gnupg2 ca-certificates lsb-release wget procps vim
+RUN apt-get install -y curl gnupg2 ca-certificates lsb-release wget procps vim less
 RUN echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" \ | tee /etc/apt/sources.list.d/nginx.list
 RUN curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -
 RUN apt-get update

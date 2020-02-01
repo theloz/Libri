@@ -44,7 +44,7 @@ fi
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/fpm/php.ini
 sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 256M/g" /etc/php/7.3/cli/php.ini
 sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 256M/g" /etc/php/7.3/fpm/php.ini
-sed -i "s/memory_limit = 256M/memory_limit = 4096M/g" /etc/php/7.3/fpm/php.ini
+sed -i "s/memory_limit = 128M/memory_limit = 4096M/g" /etc/php/7.3/fpm/php.ini
 sed -i "s/max_execution_time = 30/max_execution_time = 120/g" /etc/php/7.3/fpm/php.ini
 
 #Setting PHP-FPM

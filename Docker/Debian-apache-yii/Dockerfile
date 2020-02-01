@@ -2,7 +2,7 @@ FROM debian:buster-slim
 LABEL   version="1.0" \
         author="Lorenzo Lombardi" \
         email="thelozspot@gmail.com"
-RUN apt-get update && apt-get upgrade
+RUN apt-get -y update && apt-get -y upgrade
 #Debian essential tools
 RUN apt-get install -y curl unzip wget lsb-release apt-transport-https ca-certificates apt-utils vim
 RUN apt-get update

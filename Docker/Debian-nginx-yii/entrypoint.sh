@@ -42,7 +42,7 @@ else
 fi
 #Setting PHP
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/cli/php.ini
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/cli/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 256M/g" /etc/php/7.3/cli/php.ini
 
 #Setting PHP-FPM
 sed -i "s#listen = /run/php/php7.3-fpm.sock#listen = 127.0.0.1:9000#g" /etc/php/7.3/fpm/pool.d/www.conf

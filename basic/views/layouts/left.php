@@ -48,8 +48,8 @@
                         'url' => '#',
                         // 'options' =>['class' => 'menu-open',],
                         'items' => [
-                            ['label' => Yii::t('app','File upload'), 'icon' => 'file-upload', 'url' => ['/book/upload'],],
-                            ['label' => Yii::t('app','Book list'), 'icon' => 'swatchbook', 'url' => ['/book/list'],],
+                            ['label' => Yii::t('app','File upload'), 'icon' => 'file-upload', 'url' => ['/books/upload'],],
+                            ['label' => Yii::t('app','Book list'), 'icon' => 'swatchbook', 'url' => ['/books/index'],],
                         ],
                     ],
                 ],

@@ -1,0 +1,48 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('app','Books');
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="libri-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Libri', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'codice',
+            'ean13',
+            'titolo',
+            'autore',
+            //'editore',
+            //'prezzo_copertina',
+            //'codice_collana',
+            //'collana',
+            //'argomento',
+            //'linea_prodotto',
+            //'disponibilita',
+            //'create_dttm',
+            //'mod_dttm',
+            //'create_id',
+            //'mod_id',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+
+</div>

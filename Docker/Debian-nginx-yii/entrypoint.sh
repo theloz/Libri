@@ -24,7 +24,7 @@ file_env() {
 user="${NGINX_WEB_USER:-www-data}"
 group="${NGINX_WEB_GROUP:-www-data}"
 
-if [ ! -e ${DEST}yii ] && [ -e ${ORIG}basic/yii ]; then
+if [ ! -e ${DEST}basic/yii ] && [ -e ${ORIG}basic/yii ]; then
     echo >&2 "Yii not found in $DEST - copying now..."
 
     cp -rp ${ORIG}basic $DEST
@@ -41,6 +41,7 @@ else
     echo >&2 "Yii not found in destination"
 fi
 #Setting PHP
+sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/cli/php.ini
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/cli/php.ini
 
 #Setting PHP-FPM

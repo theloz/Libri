@@ -8,6 +8,8 @@ return [
     "File not found"                    => "File non trovato",
     'Tools'                             => 'Strumenti',
     'Catalogue'                         => 'Catalogo',
+    'Catalogue upload'                  => 'Aggiornamento catalogo',
+    'Books'                             => 'Libri',
     'Are you sure you want to delete this item?' => 'Sei sicuro di voler eliminare questo elemento?',
     // User table
     'First Name'            => "Nome",

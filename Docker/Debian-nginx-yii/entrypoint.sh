@@ -38,7 +38,7 @@ if [ ! -e ${DEST}basic/yii ] && [ -e ${ORIG}basic/yii ]; then
     #generate cookivalidation key
     sed -i "s/'cookieValidationKey' => ''/'cookieValidationKey' => '$(date +%s | base64)'/g" /var/www/html/basic/config/web.php
 else
-    echo >&2 "Yii not found in destination"
+    echo >&2 "Yii found in destination"
 fi
 #Setting PHP
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.3/fpm/php.ini

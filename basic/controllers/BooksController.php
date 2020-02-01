@@ -88,10 +88,48 @@ class BooksController extends Controller
         $model = new UploadCatalogue();
 
         if (Yii::$app->request->isPost) {
-            $model->file = UploadedFile::getInstance($model, 'file');
+            $model->csvfile = UploadedFile::getInstance($model, 'csvfile');
+            if ($model->upload()) {
+                // echo "<pre>".print_r($model->csvfile)."</pre>";exit;
+                $sep = Yii::$app->request->post('UploadCatalogue')['separator'];
+                $firstlines = (int)Yii::$app->request->post('UploadCatalogue')['firstline'];
+                // // Open the file for reading
+                echo "<pre>";
+                if (($h = fopen('/var/www/html/public/'.$model->csvfile->name, "r")) !== FALSE) {
+                    // Convert each line into the local $data variable
+                    $i = 0;
+                    while (($data = fgetcsv($h, 2000, $sep)) !== FALSE) {
+                        //skip first line
+                        if($i<$firstlines){
+                            $i++;
+                            continue;
+                        }
+                        else{
+                            $book = new Libri();
+                            $book->codice = $data[0];
+                            $book->ean13 = $data[1];
+                            $book->titolo = $data[2];
+                            $book->autore = $data[3];
+                            $book->editore = $data[4];
+                            $book->prezzo_copertina = $data[5];
+                            $book->codice_collana = $data[6];
+                            $book->collana = $data[7];
+                            $book->argomento = $data[8];
+                            $book->linea_prodotto = $data[9];
+                            $book->disponibilita = $data[10];
+                            if(!$book->save()){
+                                print_r($book->getErrors());
+                                exit;
+                            }
+                            $i++;
+                        }
+                    }
 
-            if ($model->file && $model->validate()) {                
-                $model->file->saveAs('/var/www/html/public/' . $model->file->baseName . '.' . $model->file->extension);
+                    // Close the file
+                    fclose($h);
+                }
+                echo "</pre>";
+                return;
             }
         }
         return $this->render('upload', ['model' => $model]);

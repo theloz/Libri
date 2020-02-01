@@ -43,11 +43,11 @@ class Libri extends \yii\db\ActiveRecord
             [['disponibilita', 'create_id', 'mod_id'], 'default', 'value' => null],
             [['disponibilita', 'create_id', 'mod_id'], 'integer'],
             [['create_dttm', 'mod_dttm'], 'safe'],
-            [['codice', 'codice_collana'], 'string', 'max' => 10],
+            [['codice', 'codice_collana'], 'string', 'max' => 15],
             [['ean13'], 'string', 'max' => 20],
             [['titolo'], 'string', 'max' => 255],
             [['autore', 'editore', 'prezzo_copertina', 'collana'], 'string', 'max' => 100],
-            [['argomento'], 'string', 'max' => 30],
+            [['argomento'], 'string', 'max' => 100],
             [['linea_prodotto'], 'string', 'max' => 50],
         ];
     }

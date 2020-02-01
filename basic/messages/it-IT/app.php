@@ -10,6 +10,12 @@ return [
     'Catalogue'                         => 'Catalogo',
     'Catalogue upload'                  => 'Aggiornamento catalogo',
     'Books'                             => 'Libri',
+    'Separator'                         => 'Separatore',
+    'CSV File'                          => 'File CSV',
+    'Skip these lines'                  => 'Salta queste righe',
+    'Yes'                               => 'Sì',
+    'No'                                => 'No',
+    'Select...'                         => 'Scegli...',
     'Are you sure you want to delete this item?' => 'Sei sicuro di voler eliminare questo elemento?',
     // User table
     'First Name'            => "Nome",

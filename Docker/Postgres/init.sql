@@ -43,7 +43,7 @@ CREATE TABLE public.users(
     create_id int,
     mod_id int
 );
-INSERT INTO public.users (id,username,saltkey,lastlogin_dttm,userfirstname,userlastname,create_dttm,mod_dttm,create_id,mod_id) 
-VALUES (1,'theloz',gen_salt('bf'),NOW(),'Lorenzo', 'Lombardi',NOW(),NOW(),1,1);
+INSERT INTO public.users (id,username,saltkey,userrole,lastlogin_dttm,userfirstname,userlastname,create_dttm,mod_dttm,create_id,mod_id) 
+VALUES (1,'theloz',gen_salt('bf'),'admin',NOW(),'Lorenzo', 'Lombardi',NOW(),NOW(),1,1);
 UPDATE public.users SET userpwd = crypt('strong!!password', (SELECT saltkey FROM public.users WHERE id=1))  WHERE id=1;
 -- SELECT (userpwd = crypt('entered password', userpwd)) AS userpwd FROM users where id=1 ;

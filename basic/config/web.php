@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name'  => 'Libriapp',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'it-IT',
@@ -100,5 +101,6 @@ if (YII_ENV_DEV) {
         ],
     ];
 }
+$config['modules']['gridview'] = ['class' => '\kartik\grid\Module'];
 
 return $config;

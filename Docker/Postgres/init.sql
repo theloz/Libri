@@ -1,7 +1,7 @@
 CREATE EXTENSION btree_gist;
 CREATE EXTENSION pgcrypto;
 
-CREATE TABLE public.libri (
+CREATE TABLE IF NOT EXISTS public.libri (
     id serial PRIMARY KEY,
     codice varchar(15),
     ean13 varchar(20),
@@ -19,17 +19,18 @@ CREATE TABLE public.libri (
     create_id int,
     mod_id int
 );
-CREATE TABLE public.audit_trail(
+CREATE TABLE IF NOT EXISTS public.audit_trail(
     id serial PRIMARY KEY,
     table_name varchar(50),
     column_name varchar(50),
     row_name int,
     change_dttm timestamp,
-    change_by varchar(100),
+    change_by int,
     old_value varchar(255),
-    new_value varchar(255)
+    new_value varchar(255),
+    diff_value varchar(200)
 );
-CREATE TABLE public.user (
+CREATE TABLE IF NOT EXISTS public.user (
     id serial PRIMARY KEY ,
     first_name varchar(250) ,
     last_name varchar(250) ,

@@ -113,3 +113,6 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.user-panel>.info>p{
+    line-height: 35px;
+}

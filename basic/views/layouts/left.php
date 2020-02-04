@@ -5,7 +5,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/assets/imgs/logo/logo.png" alt="User Image"/>
+            <?php
+                $avatar = "/assets/imgs/".( (Yii::$app->user->identity->user_image == '' ) ? "male-user.svg" : Yii::$app->user->identity->user_image);
+            ?>
+            <img src="<?=$avatar?>" alt="App Image"/>
             </div>
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->first_name." ".Yii::$app->user->identity->last_name?></p>
@@ -31,7 +34,7 @@
                 'items' => [
                     ['label' => Yii::t('app','Menu'), 'options' => ['class' => 'header']],
                     ['label' => 'Home', 'icon' => 'home', 'url' => ['/site/index'], ],
-                    ['label' => 'About', 'icon' => 'stethoscope', 'url' => ['/site/about'], ],
+                    ['label' => Yii::t('app','About'), 'icon' => 'stethoscope', 'url' => ['/site/about'], ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     [
                         'label' => Yii::t('app','Tools'),

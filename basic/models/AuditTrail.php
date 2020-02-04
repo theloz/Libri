@@ -12,7 +12,7 @@ use Yii;
  * @property string|null $column_name
  * @property int|null $row_name
  * @property string|null $change_dttm
- * @property string|null $change_by
+ * @property int|null $change_by
  * @property string|null $old_value
  * @property string|null $new_value
  */
@@ -33,10 +33,9 @@ class AuditTrail extends \yii\db\ActiveRecord
     {
         return [
             [['row_name'], 'default', 'value' => null],
-            [['row_name'], 'integer'],
+            [['row_name', 'change_by'], 'integer'],
             [['change_dttm'], 'safe'],
             [['table_name', 'column_name'], 'string', 'max' => 50],
-            [['change_by'], 'string', 'max' => 100],
             [['old_value', 'new_value'], 'string', 'max' => 255],
         ];
     }

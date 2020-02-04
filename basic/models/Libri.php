@@ -85,10 +85,10 @@ class Libri extends \yii\db\ActiveRecord
     {
         return new LibriQuery(get_called_class());
     }
-    public function getPricechange(){
-        return $this->hasMany(AuditTrail::className(), ['row_name' => 'id'])->where(['table_name'=>'libri','row_name'=>'prezzo_copertina'])->orderBy('change_dttm DESC');
+    public function getPricechanges(){
+        return $this->hasMany(AuditTrail::className(), ['row_name' => 'id'])->where(['table_name'=>'libri','column_name'=>'prezzo_copertina'])->orderBy('change_dttm DESC');
     }
-    public function getAvailabilitychange(){
-        return $this->hasMany(AuditTrail::className(), ['row_name' => 'id'])->where(['table_name'=>'libri','row_name'=>'disponibilita'])->orderBy('change_dttm DESC');
+    public function getAvailabilitychanges(){
+        return $this->hasMany(AuditTrail::className(), ['row_name' => 'id'])->where(['table_name'=>'libri','column_name'=>'disponibilita'])->orderBy('change_dttm DESC');
     }
 }

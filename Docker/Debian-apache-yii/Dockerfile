@@ -33,6 +33,7 @@ RUN rm yii-basic-app-2.0.32.tgz
 RUN chown -R www-data:www-data /usr/src/basic
 RUN chmod 777 /usr/src/basic/web/assets
 RUN chmod 777 /usr/src/basic/runtime
+RUN chmod 777 /usr/src/basic/log
 ENV YII_VERSION 2.0.32
 
 # Configure apache

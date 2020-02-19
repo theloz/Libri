@@ -22,7 +22,20 @@ return [
     'Book list'                         => 'Elenco libri',
     'About'                             => 'Informazioni',
     'Last variation'                    => 'Ultima variazione',
+    'Last variations'                   => 'Ultime variazioni',
+    'Recently added'                    => 'Ultimi inserimenti',
+    'View All Products'                 => 'Tutti i prodotti',
+    'Added on'                          => 'Aggiunto il',
+    'Return to index'                   => "Torna all'indice",
+    'First'                             => "Prima",
+    'Last'                              => "Ultima",
+    'Availability recently modified'    => "Ultime modifiche disponibilità",
+    'Price recently modified'           => "Ultime modifiche prezzo",
+    'Last {tail} lines'                 => "Ultime {tail} righe",
+    'Save'                              => "Aggiorna",
+    'More informations'                 => "Ulteriori informazioni",
     'Are you sure you want to delete this item?' => 'Sei sicuro di voler eliminare questo elemento?',
+    
     // User table
     'First Name'            => "Nome",
     'Last Name'             => "Cognome",
@@ -53,12 +66,19 @@ return [
     'Price variation'           => 'Variazione',
     'Last availability'         => 'Ultima',
     'Availability variation'    => 'Variazione',
+    'Prezzo Old'                => 'Prezzo precedente',
+    'Prezzo Diff'               => 'Differenza prezzo',
+    'Disponibilita Old'         => 'Disponibilita precedente',
+    'Disponibilita Diff'        => 'Differenza disponibilita',
 
     //audit trail table
-    'Table Name'    => 'Colonna',
+    'Table Name'    => 'Tabella',
     'Column Name'   => 'Colonna',
-    'Row Name'      => 'Colonna',
-
+    'Row Name'      => 'Riga',
+    'Change Dttm'   => 'Data modifica',
+    'Old Value'     => 'Valore precedente',
+    'New Value'     => 'Valore inserito',
+    'Diff Value'    => 'Differenza',
 
     //generali DB
     'Create Dttm'   => "Data creazione",

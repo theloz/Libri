@@ -46,6 +46,9 @@ class LibriSearch extends Libri
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $dataProvider->setSort([
@@ -62,29 +65,20 @@ class LibriSearch extends Libri
                 'codice_collana',
                 'argomento',
                 'linea_prodotto',
-                'last_price_sort' => [
-                    'asc'     => ['last_price' => SORT_ASC],
-					'desc'    => ['last_price' => SORT_DESC],
-					'default' => SORT_ASC,
-					'label'   => \Yii::t('app', 'Last price'),
+                'disponibilita',
+                'create_dttm',
+                'mod_dttm',
+                'prezzo_old' =>[
+                    'label'   => \Yii::t('app', 'Last price'),
                 ],
-                'price_variation_sort' => [
-                    'asc'     => ['price_variation' => SORT_ASC],
-					'desc'    => ['price_variation' => SORT_DESC],
-					'default' => SORT_ASC,
-					'label'   => \Yii::t('app', 'Price variation'),
+                'prezzo_diff' =>[
+                    'label'   => \Yii::t('app', 'Price variation'),
                 ],
                 'disponibilita',
-                'last_avail_sort' => [
-                    'asc'     => ['last_availability' => SORT_ASC],
-                    'desc'    => ['last_availability' => SORT_DESC],
-                    'default' => SORT_ASC,
+                'disponibilita_old'=>[
                     'label'   => \Yii::t('app', 'Last availability'),
                 ],
-                'avail_variation_sort' => [
-                    'asc'     => ['avail_variation' => SORT_ASC],
-                    'desc'    => ['avail_variation' => SORT_DESC],
-                    'default' => SORT_ASC,
+                'disponibilita_diff'=>[
                     'label'   => \Yii::t('app', 'Availability variation'),
                 ],
 
@@ -133,6 +127,14 @@ class LibriSearch extends Libri
         //     ->orderBy('change_dttm DESC')
         //     ->limit(1);
         //     ;
+        // $qLastPriceDiff = (new \yii\db\Query())
+        //     ->select(['cast( replace( diff_value, \',\',\'.\' ) as float ) as diff_value'])
+        //     ->from('audit_trail')
+        //     ->andWhere(['and',['table_name'=>'libri', 'column_name'=>'prezzo_copertina']])
+        //     ->andWhere('row_name=libri.id')
+        //     ->orderBy('change_dttm DESC')
+        //     ->limit(1);
+        //     ;
         // $qLastAvail = (new \yii\db\Query())
         //     ->select(['cast( old_value as integer ) as old_value'])
         //     ->from('audit_trail')
@@ -141,20 +143,15 @@ class LibriSearch extends Libri
         //     ->orderBy('change_dttm DESC')
         //     ->limit(1)
         //     ;
-        $qLastPrice = "
-            select cast(replace(old_value ',','.') as float) as old_value
-            from audit_trail where table_name='libri' 
-            and column_name='prezzo_copertina' 
-            and row_name=libri.id 
-            order by change_dttm DESC LIMIT 1
-        ";
-        $qLastAvail = "
-            select cast(old_value as integer) as old_value 
-            from audit_trail where table_name='libri' 
-            and column_name='disponibilita' 
-            and row_name=libri.id 
-            order by change_dttm DESC LIMIT 1
-        ";
+        // $qLastAvailDiff = (new \yii\db\Query())
+        //     ->select(['cast( diff_value as integer ) as diff_value'])
+        //     ->from('audit_trail')
+        //     ->andWhere(['and',['table_name'=>'libri', 'column_name'=>'disponibilita']])
+        //     ->andWhere('row_name=libri.id')
+        //     ->orderBy('change_dttm DESC')
+        //     ->limit(1)
+        //     ;
+        
         $query = Libri::find();
         
         $query->select([
@@ -174,10 +171,10 @@ class LibriSearch extends Libri
             'libri.mod_id',
             $qPrice.' as prezzo_copertina',
             $qAvail.' as disponibilita',
-            'last_price' => "coalesce($qLastPrice, $qPrice)",
-            'last_availability' => "coalesce($qLastAvail, $qAvail)",
-            // 'price_variation' => "prezzo_copertina - $qLastPrice",
-            // 'avail_variation' => "$qAvail - $qLastAvail",
+            'prezzo_old',
+            'prezzo_diff',
+            'disponibilita_old',
+            'disponibilita_diff',
         ]);
         // echo $sql = $query->createCommand()->getRawSql();exit;
         //$data = $query->createCommand()->queryAll();

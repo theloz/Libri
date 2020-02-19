@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
 use barcode\barcode\BarcodeGenerator as BarcodeGenerator;
-
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -14,19 +14,21 @@ $this->title = Yii::t('app','Books');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="libri-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?php //echo Html::a(Yii::t('app','Create Books'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-
-    <?= GridView::widget([
+    <?php
+    yii\bootstrap\Modal::begin(['id' =>'modal']);
+    yii\bootstrap\Modal::end();
+    echo GridView::widget([
+        'pager' => [
+            'firstPageLabel' => Yii::t('app','First'),
+            'lastPageLabel'  => Yii::t('app','Last')
+        ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'showPageSummary' => true,
-        'pjax' => true,
+        // 'pjax' => true,
         'striped' => true,
         'hover' => true,
         'responsive' => true,
@@ -36,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
+            //'id',
             [
                 'label' => 'barcode',
                 'format' => 'raw',
@@ -47,6 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'type'=>'ean13',/*supported types  ean8, ean13, upc, std25, int25, code11, code39, code93, code128, codabar, msi, datamatrix*/
                     ];
                     return '<div id="showBarcode-'.$model->id.'"></div>'.BarcodeGenerator::widget($optionsArray);
+                }
+            ],
+            [
+                'label' => 'Immagine',
+                'format' => 'raw',
+                'value' => function($model, $key, $index, $column){
+                    // return '<img src="https://img.fastbookspa.it/images/'.$model->ean13.'_0_230_350_0.jpg" width="100" />';
+                    return Html::a('<img src="https://img.fastbookspa.it/images/'.$model->ean13.'_0_230_350_0.jpg" width="100" />', ['books/view-image', 'ean' => $model->ean13], ['class' => 'popupModal']);
                 }
             ],
             [
@@ -63,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'kartik-sheet-style'],
                 'expandOneOnly' => true
             ],
-            'codice',
+            // 'codice',
             'ean13',
             'titolo',
             'autore',
@@ -71,16 +81,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'prezzo_copertina',
             [
                 'label' =>  $dataProvider->getSort()->link('prezzo_copertina').' / '.
-                            $dataProvider->getSort()->link('last_price_sort').' / '.
-                            $dataProvider->getSort()->link('price_variation_sort'),
+                            $dataProvider->getSort()->link('prezzo_old').' / '.
+                            $dataProvider->getSort()->link('prezzo_diff'),
                 'encodeLabel'   => false,
                 'attribute'     => '',
                 'format' => 'raw',
                 'value' => function($model, $key, $index, $column){
                     $currPrice = number_format((float)(str_replace(",",".",$model->prezzo_copertina)),2);
-                    $var = $model->pricechanges;
-                    $prevPrice = ( isset($var[0]) ? number_format((float)(str_replace(",",".",$var[0]->old_value)),2) : $currPrice );
-                    $diff = number_format( ($currPrice - $prevPrice), 2);
+                    $prevPrice = $model->prezzo_old;
+                    $diff = $model->prezzo_diff;
                     return  $currPrice.' / '.$prevPrice.' / '.($diff < 0 ? '<strong><span class="text-danger">'.$diff.'</span></strong>' : '<strong>'.$diff.'</strong>');
                 }
             ],
@@ -91,20 +100,19 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'disponibilita',
             [
                 'label' =>  $dataProvider->getSort()->link('disponibilita').' / '.
-                            $dataProvider->getSort()->link('last_avail_sort').' / '.
-                            $dataProvider->getSort()->link('avail_variation_sort'),
+                            $dataProvider->getSort()->link('disponibilita_old').' / '.
+                            $dataProvider->getSort()->link('disponibilita_diff'),
                 'encodeLabel'   => false,
                 'attribute'     => '',
                 'format' => 'raw',
                 'value' => function($model, $key, $index, $column){
                     $currAvail = (int)$model->disponibilita;
-                    $var = $model->pricechanges;
-                    $prevAvail = ( isset($var[0]) ? (int)$var[0]->old_value : $currAvail );
-                    $diff = ($currAvail - $prevAvail);
+                    $prevAvail = $model->disponibilita_old;
+                    $diff = $model->disponibilita_diff;
                     return  $currAvail.' / '.$prevAvail.' / '.($diff < 0 ? '<strong><span class="text-danger">'.$diff.'</span></strong>' : '<strong>'.$diff.'</strong>');
                 }
             ],
-            //'create_dttm:datetime',
+            'create_dttm:datetime',
             //'mod_dttm:datetime',
             //'create_id',
             //'mod_id',
@@ -130,7 +138,16 @@ $this->params['breadcrumbs'][] = $this->title;
         // ],
         // 'toggleDataContainer' => ['class' => 'btn-group-sm'],
         // 'exportContainer' => ['class' => 'btn-group-sm']
-    ]); ?>
+    ]); 
+    ?>
 
 
 </div>
+<?php
+$this->registerJs("$(function() {
+    $('.popupModal').click(function(e) {
+      e.preventDefault();
+      $('#modal').modal('show').find('.modal-content')
+      .load($(this).attr('href'));
+    });
+ });");

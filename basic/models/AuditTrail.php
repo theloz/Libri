@@ -15,6 +15,7 @@ use Yii;
  * @property int|null $change_by
  * @property string|null $old_value
  * @property string|null $new_value
+ * @property string|null $diff_value
  */
 class AuditTrail extends \yii\db\ActiveRecord
 {
@@ -37,6 +38,7 @@ class AuditTrail extends \yii\db\ActiveRecord
             [['change_dttm'], 'safe'],
             [['table_name', 'column_name'], 'string', 'max' => 50],
             [['old_value', 'new_value'], 'string', 'max' => 255],
+            [['diff_value'], 'string', 'max' => 200],
         ];
     }
 
@@ -54,6 +56,7 @@ class AuditTrail extends \yii\db\ActiveRecord
             'change_by' => Yii::t('app', 'Change By'),
             'old_value' => Yii::t('app', 'Old Value'),
             'new_value' => Yii::t('app', 'New Value'),
+            'diff_value' => Yii::t('app', 'Diff Value'),
         ];
     }
 

@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        // 'css/site.css',
     ];
     public $js = [
     ];
@@ -28,4 +28,8 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
+    public function init(){
+        parent::init();
+        $this->css[] = 'css/site.css?v='.time();
+    }
 }

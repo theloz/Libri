@@ -59,6 +59,7 @@ $config = [
                     'skin' => 'skin-purple',
                 ],
             ],
+            // 'appendTimestamp' => true,
         ],
         'i18n' => [
             'translations' => [
@@ -72,6 +73,12 @@ $config = [
                     ],
                 ],
             ],
+        ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
     ],
     'params' => $params,

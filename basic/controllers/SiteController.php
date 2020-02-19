@@ -74,7 +74,20 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $last = \app\models\Libri::find()->orderBy('create_dttm DESC')->limit(10)->all();
+        $lastPrice = \app\models\Libri::find()
+            ->where('prezzo_diff <> 0')
+            ->orderBy('mod_dttm DESC')->limit(10)->all();
+        $lastAvailability = \app\models\Libri::find()
+            ->where('disponibilita_diff <> 0')
+            ->orderBy('mod_dttm DESC')->limit(10)->all();
+
+        return $this->render('index', [
+            'last' => $last,
+            'lastPrice' => $lastPrice,
+            'lastAvailability' => $lastAvailability,
+            // 'dataProvider' => $dataProvider,
+        ]);
     }
     /**
      * Displays logpage.
